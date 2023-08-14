@@ -71,7 +71,53 @@ def multiply():
 # Create function to divide two numbers
 def divide():
     hide_all_frames()
-    divide_frame.pack(fill="both", expand=1)  
+    div_frame.pack(fill="both", expand=1)
+
+    # Create two random numbers
+    global num_1
+    global num_2
+    num_1 = IntVar()
+    num_2 = IntVar()
+
+    num_1.set(randint(0, 10))
+    num_2.set(randint(1, 10))
+
+    # Put random numbers on screen
+    global div_label
+    div_label = Label(div_frame, text=f"{num_1.get()} / {num_2.get()}", font=("helvetica", 32))
+    div_label.pack(pady=20, padx=50)
+
+    # Create answer box
+    global div_answer
+    div_answer = Entry(div_frame, font=("helvetica", 18))
+    div_answer.pack(pady=10, padx=50)
+
+    # Create submit button
+    div_button = Button(div_frame, text="Answer", command=lambda: div_answer_func(num_1.get(), num_2.get(), div_answer.get()))
+    div_button.pack(pady=10)
+
+    global answer_label
+    answer_label = Label(div_frame, text="Enter the correct value above", font=("helvetica", 18))
+    answer_label.pack(pady=10)
+
+# Create function to check add answer
+def div_answer_func(num1, num2, answer):
+    # Calculate the answer
+    correct_answer = num1 / num2
+
+    # Check if answer is correct
+    if correct_answer == float(answer):
+        answer_label.config(text="Correct Answer! " + str(num1) + " / " + str(num2) + " = " + str(correct_answer))
+    else:
+        answer_label.config(text="Incorrect Answer! " + str(num1) + " / " + str(num2) + " = " + str(correct_answer) + " not " + str(answer))
+
+    # Clear the answer box
+    div_answer.delete(0, "end")
+
+    # Generate two new random numbers
+    num_1.set(randint(0, 10))
+    num_2.set(randint(1, 10))
+    div_label.config(text=f"{num_1.get()} / {num_2.get()}")
 
 # Hide menu frames
 def hide_all_frames():
@@ -82,14 +128,14 @@ def hide_all_frames():
         widget.pack_forget()
     for widget in multiply_frame.winfo_children():
         widget.pack_forget()
-    for widget in divide_frame.winfo_children():
+    for widget in div_frame.winfo_children():
         widget.pack_forget()
 
     # Hide all frames
     add_frame.pack_forget()
     subtract_frame.pack_forget()
     multiply_frame.pack_forget()
-    divide_frame.pack_forget()
+    div_frame.pack_forget()
 
 # Define main menu
 main_menu = Menu(root)
@@ -109,7 +155,7 @@ math_menu.add_command(label="Exit", command=root.quit)
 add_frame = Frame(root, width=500, height=500)
 subtract_frame = Frame(root, width=500, height=500, bg="red")
 multiply_frame = Frame(root, width=500, height=500, bg="green")
-divide_frame = Frame(root, width=500, height=500, bg="yellow")
+div_frame = Frame(root, width=500, height=500)
 
 
 
