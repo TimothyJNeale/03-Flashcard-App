@@ -1,4 +1,5 @@
 from tkinter import *
+from random import randint
 
 root = Tk()
 root.title("Maths Flashcards")
@@ -9,6 +10,23 @@ root.iconbitmap("01 Nenebiker.ico")
 def add():
     hide_all_frames()
     add_frame.pack(fill="both", expand=1)
+
+    # Create two random numbers
+    num_1 = randint(0, 10)
+    num_2 = randint(0, 10)
+
+    # Put random numbers on screen
+    add_label = Label(add_frame, text=f"{num_1} + {num_2}", font=("helvetica", 32))
+    add_label.pack(pady=20, padx=50)
+
+    # Create answer box
+    add_answer = Entry(add_frame, font=("helvetica", 18))
+    add_answer.pack(pady=10, padx=50)
+
+    # Create submit button
+    add_button = Button(add_frame, text="Answer", command="")
+    add_button.pack(pady=10)
+
 
 # Create function to subtract two numbers
 def subtract():
@@ -58,7 +76,7 @@ math_menu.add_separator()
 math_menu.add_command(label="Exit", command=root.quit)
 
 # Create Math Frames
-add_frame = Frame(root, width=500, height=500, bg="blue")
+add_frame = Frame(root, width=500, height=500)
 subtract_frame = Frame(root, width=500, height=500, bg="red")
 multiply_frame = Frame(root, width=500, height=500, bg="green")
 divide_frame = Frame(root, width=500, height=500, bg="yellow")
