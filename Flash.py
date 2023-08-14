@@ -122,6 +122,8 @@ def div_answer_func(num1, num2, answer):
 # Hide menu frames
 def hide_all_frames():
     # Loop thru and hide all frames
+    for widget in start_frame.winfo_children():
+        widget.pack_forget()
     for widget in add_frame.winfo_children():
         widget.pack_forget()
     for widget in subtract_frame.winfo_children():
@@ -132,10 +134,25 @@ def hide_all_frames():
         widget.pack_forget()
 
     # Hide all frames
+    start_frame.pack_forget()
     add_frame.pack_forget()
     subtract_frame.pack_forget()
     multiply_frame.pack_forget()
     div_frame.pack_forget()
+
+# Start screen
+def home():
+    # Hide all frames
+    hide_all_frames()
+    
+    start_frame.pack(fill="both", expand=1)
+    start_label = Label(start_frame, text="Welcome to Maths Flashcards", font=("helvetica", 18))
+    start_label.pack(pady=20)
+
+    a_button = Button(start_frame, text="Addition Flashcards", command=add).pack(pady=5)
+    b_button = Button(start_frame, text="Subtraction Flashcards", command=subtract).pack(pady=5)
+    c_button = Button(start_frame, text="Multiplication Flashcards", command=multiply).pack(pady=5)
+    d_button = Button(start_frame, text="Division Flashcards", command=divide).pack(pady=5)
 
 # Define main menu
 main_menu = Menu(root)
@@ -149,15 +166,18 @@ math_menu.add_command(label="Subtract", command=subtract)
 math_menu.add_command(label="Multiply", command=multiply)
 math_menu.add_command(label="Divide", command=divide)
 math_menu.add_separator()
+math_menu.add_command(label="Home", command=home)
+math_menu.add_separator()
 math_menu.add_command(label="Exit", command=root.quit)
 
-# Create Math Frames
+# Create Math Frames    
 add_frame = Frame(root, width=500, height=500)
 subtract_frame = Frame(root, width=500, height=500, bg="red")
 multiply_frame = Frame(root, width=500, height=500, bg="green")
 div_frame = Frame(root, width=500, height=500)
 
-
-
+# Show start screen
+start_frame = Frame(root, width=500, height=500)    
+home()
 
 root.mainloop()
